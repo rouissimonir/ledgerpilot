@@ -6,13 +6,33 @@ LedgerPilot is a public portfolio project for Mounir, a Java/Spring developer (~
 
 A deterministic scanner finds breaks. The model writes the explanation a reviewer reads. The API posts a correction only after a human approves that finding, and only for the scanner's delta.
 
-Nothing here is implemented yet. The build schedule, module layout, and daily checklists are in [docs/PLAN.md](docs/PLAN.md).
+The ledger API skeleton boots: Spring Boot 3 on Java 21, Flyway schema, Postgres 16, and Kafka (KRaft). It does not post transactions yet. The build schedule is in [docs/PLAN.md](docs/PLAN.md).
+
+## Run the skeleton
+
+From a clean checkout:
+
+```bash
+docker compose up --build
+```
+
+Then:
+
+```bash
+curl -s http://localhost:8080/actuator/health/readiness
+```
+
+A ready payload means Flyway has migrated Postgres. Local demo credentials are user `ledger`, password `ledger`, database `ledgerpilot` on port 5432. Kafka listens on `localhost:9092`. The API does not publish yet. The weekend outbox task is what connects it to Kafka.
+
+```bash
+docker compose down
+```
 
 ## Status
 
 | When | What is public |
 | --- | --- |
-| Week of Nov 24, 2026 | This plan. Ledger API slice targeted for Fri Nov 27. |
+| Week of Nov 24, 2026 | Skeleton boots (Compose, schema, health). Posting API targeted for Fri Nov 27. |
 | Week of Dec 1 | Reconciliation agent, 10 seeded bugs, local evals. |
 | Week of Dec 8 | Guardrail evals in GitHub Actions, Bedrock, a small AWS deploy, a one-page approval UI. |
 | Week of Dec 15 | Demo video and this pilot plan filled in with measured results. |
