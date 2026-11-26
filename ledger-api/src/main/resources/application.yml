@@ -5,9 +5,18 @@ spring:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/ledgerpilot}
     username: ${SPRING_DATASOURCE_USERNAME:ledger}
     password: ${SPRING_DATASOURCE_PASSWORD:ledger}
+  jackson:
+    deserialization:
+      accept-float-as-int: false
 
 server:
   port: 8080
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-path: never
+    include-exception: false
 
 management:
   endpoints:
